@@ -85,7 +85,8 @@
     d3.csv("data.csv", function(error, data) {
       var data = d3.nest()
         .key(function(d) {
-          return d.entityname;
+
+		return d.entityname;
         })
         .rollup(function(d) {
           return d3.sum(d, function(g) {
@@ -141,6 +142,11 @@
     	font-family:'Raleway', 'Open Sans', sans-serif;
 
 	}   
+	p {
+
+   	 margin: 5px 0;
+
+	}
    </style>
   </body>
 </html>
