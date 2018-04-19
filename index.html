@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700">
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-44807543-1']);
+
+    _gaq.push(['_trackPageview']);
+
+
+
+    (function() {
+
+        var ga = document.createElement('script');
+
+        ga.type = 'text/javascript';
+
+        ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+        var s = document.getElementsByTagName('script')[0];
+
+        s.parentNode.insertBefore(ga, s);
+
+    })();
+    </script>
+</head>
+<body>
+   <nav role="navigation">
+    <li><a href="index.html" role="button" class="pure-button switch" id="chart">All money</a>
+   </li>
+   </nav>
+  <div id="initial-content">
+
+            <h2>Political donations and funding accepted by the Conservatives, Labour and Liberal Democrats between the 2010 general election and August 2013, when this data was collected.</h2>
+            <p>Each circle represents the total amount donated by a single donor group, funding organisation or individual during that period.</p>
+            <p>Hover over a circle to show further information.</p>
+            <p>Get an immediate overview of how party funding is shaped in Britain today by selecting one of the options at the top of the page.</p>
+            <p>Data is based on all reportable donations over &#163;7500.</p>
+            <p>Data source: <a href="http://www.electoralcommission.org.uk/">The Electoral Commission.</a>
+
+            </p>
+
+  </div>
+  
+  <div id="pieChart"></div>
+  <div id='tooltip'></div>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script>
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')
+    </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+     
+
+ var width = 960,
+      height = 500,
+      radius = Math.min(width, height) / 2;
+
+    var color = d3.scale.ordinal()
+      .range(["#e32636","#faf0be","#5d8aa8", "#848482","#002e63", "#ffe095","#e4e514"]);
+
+    var arc = d3.svg.arc()
+      .outerRadius(radius - 10)
+      .innerRadius(0);
+
+    var pie = d3.layout.pie()
+      .sort(null)
+        .value(function(d) {
+        return d.values;
+      });
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    d3.csv("data.csv", function(error, data) {
+      var data = d3.nest()
+        .key(function(d) {
+          return d.entityname;
+        })
+        .rollup(function(d) {
+          return d3.sum(d, function(g) {
+            return g.amount;
+          });
+        }).entries(data);
+        
+       var getAngle = function (d) {
+            return (180 / Math.PI * (d.startAngle + d.endAngle) / 2 - 90);
+          };  
+  
+      var g = svg.selectAll(".arc")
+        .data(pie(data))
+        .enter().append("g")
+        .attr("class", "arc");
+
+      g.append("path")
+        .attr("d", arc)
+        .style("fill", function(d) {
+          return color(d.data.key);})
+        .transition().delay(function(d,i) {
+	        return i * 500; }).duration(500)
+	        .attrTween('d', function(d) {
+		          var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+	        	  return function(t) {
+			            d.endAngle = i(t); 
+			            return arc(d)
+			     }
+	  	}); 
+
+
+      g.append("text")
+        .attr("transform", function(d) {
+          return "translate(" + arc.centroid(d) + ")"+
+                    "rotate(" + getAngle(d) + ")";
+        })
+        .attr("dy", "5")
+        .style("text-anchor", "middle")
+        .style("font-size", "20px")
+        .transition()
+	        .delay(1000)
+        .text(function(d) {
+          return d.data.key;
+        });
+
+    });
+   </script>
+   <style>
+     .tooltip {                                                        /* NEW */
+
+        background: #eee;                                               /* NEW */
+
+        box-shadow: 0 0 5px #999999;                                    /* NEW */
+
+        color: #333;                                                    /* NEW */
+
+        display: none;                                                  /* NEW */
+
+        font-size: 12px;                                                /* NEW */
+
+        left: 130px;                                                    /* NEW */
+
+        padding: 10px;                                                  /* NEW */
+
+        position: absolute;                                             /* NEW */
+
+        text-align: center;                                             /* NEW */
+
+        top: 95px;                                                      /* NEW */
+
+        width: 100px;                                                    /* NEW */
+
+        z-index: 10;                                                    /* NEW */
+
+      }   
+   </style>
+  </body>
+</html>
+
+
