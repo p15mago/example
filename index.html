@@ -82,7 +82,7 @@
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    d3.csv("data.csv", function(error, data) {
+    d3.csv("7500up.csv", function(error, data) {
       var data = d3.nest()
         .key(function(d) {
 
