@@ -140,7 +140,49 @@
         .text(function(d) {
           return d.data.key;
         });
+g.on('mouseover', function(d) {      
+        var c = color(d.data.key);
+        tooltip.select(".entityname").html("<span style='color: " + c+ ";'>"+"<strong>"+ d.data.key+"</strong>" +"<strong>"+a(d)+"</strong>");
+        tooltip.style('display', 'block');
+    }); 
+  g.on('mouseout', function() {                              
+       tooltip.style('display', 'none');  });         
 
+      
+
+var tooltip = d3.select('#pieChart') 
+          .attr('class', 'tooltip');                           
+    tooltip.append('div')
+          .attr('class','entityname');
+
+function a(d){
+  if( d.data.key ==="Individual"){
+    var text1="<p>Total: £ 35,191,222</p><p>Proportion of all donations: 39%";
+    return text1;
+    
+  }
+  if(d.data.key === "Company"){
+    var text2="<p>Total: £ 17,052,129</p><p>Proportion of all donations: 19% </p>";
+    return text2;
+    
+  }
+  if(d.data.key === "Society"){
+    var text3="<p>Total: £4,550,129</p><p>Proportion of all donations: 5%</p>";
+    return text3;
+  } 
+  if(d.data.key === "Other"){
+    var text4="<p>Total: £ 1,484,395</p><p>Proportion of all donations: 2%</p>";
+    return text4;
+  }  
+  if(d.data.key === "Trade Union"){
+    var text5="<p>Total: £31,474,649</p><p>Proportion of all donations: 35%</p>";
+    return text5;
+  }
+  if(d.data.key == "Public Funds"){
+    var text6="<p>Total: £26,579,038</p><p>Proportion of all donations: 23%</p>";
+    return text6;
+  }
+}
     });
    </script>
    <style>
@@ -175,7 +217,42 @@
   	left: 800px;
     	width: 400px;
 	}   
-	
+	   .tooltip {
+
+    margin: 0;
+
+    padding: 5px;
+
+    line-height: 1.4;
+
+    display: none;
+
+    height: 125px;
+    
+    font-size: 14px;
+    
+    width: 280px;
+
+    text-align: left;
+
+    border: 4px solid rgba(0, 0, 0, .8);
+
+    border-radius: 2px;
+
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
+
+    background-color: rgba(255, 255, 255, 1);
+
+    position: absolute;
+    
+    
+
+}   
+.tooltip p, h3 {
+
+    margin: 0.3em;
+
+}
       
    </style>
   </body>
