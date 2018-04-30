@@ -26,31 +26,17 @@
 
     (function() {
 
-
-
         var ga = document.createElement('script');
-
-
 
         ga.type = 'text/javascript';
 
-
-
         ga.async = true;
 
-
-
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-
-
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 
         var s = document.getElementsByTagName('script')[0];
 
-
-
         s.parentNode.insertBefore(ga, s);
-
-
 
     })();
 
@@ -61,7 +47,11 @@
 
 
 <body>
+<header role="banner" id="title">
+	
+        <h1>Who's funding the big three?</h1>
 
+	</header>
     <nav role="navigation">
 
 <ul>
@@ -127,10 +117,7 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js" charset="utf-8"></script>
 
-   <script src="script.js"></script>
-
-
-
+  
    <script type="text/javascript">
 
 var width = 960,
