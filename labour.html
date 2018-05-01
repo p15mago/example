@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 
 <html>
@@ -84,7 +82,9 @@
 	</li>
   <li><a href="labour.html" role="button" class="pure-button switch" id="split_party">Split by party</a>
 	</li>
-	<div class="buttons">
+  <li><a href="index2.html" role="button" class="pure-button switch" id="group-by-donor-type">Split by type of donor</a>
+	</li>
+<div class="buttons">
 
     <div class="btns">
 
@@ -93,10 +93,9 @@
     <a href="con.html">Conservative</a>
    
     <a href="Lib_Dem.html">Liberal</a>
+    </div>
 </div>
-</div>
-<li><a href="index2.html" role="button" class="pure-button switch" id="group-by-donor-type">Split by type of donor</a>
-	</li>
+
 </ul>
 </nav>
       
@@ -194,7 +193,7 @@ var svg = d3.select("body").append("svg")
 
 
 
-d3.csv("data.csv", type, function(error, data) {
+d3.csv("7500up.csv", type, function(error, data) {
 
     var filteredData = data.filter(function(d) {
         
