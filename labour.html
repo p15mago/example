@@ -1,0 +1,439 @@
+
+
+
+<!doctype html>
+
+<html>
+
+
+
+<head>
+
+
+
+    <meta charset="utf-8">
+
+    <title>Who's funding the big three?</title>
+
+    <meta property="og:image" content="http://isthisjam.com.s3.amazonaws.com/img/bubble-img.png" />
+
+    <!-- 180x110 Image for Linkedin -->
+
+    <meta property="og:image:width" content="180" />
+
+    <meta property="og:image:height" content="110" />
+
+    <meta property="og:image" content="http://isthisjam.com.s3.amazonaws.com/img/bubble-img.png" />
+
+    <!-- 200x200 Image for Facebook -->
+
+    <meta property="og:image:width" content="200" />
+
+    <meta property="og:image:height" content="200" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700">
+
+
+
+    <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-44807543-1']);
+
+    _gaq.push(['_trackPageview']);
+
+
+
+    (function() {
+
+        var ga = document.createElement('script');
+
+        ga.type = 'text/javascript';
+
+        ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+        var s = document.getElementsByTagName('script')[0];
+
+        s.parentNode.insertBefore(ga, s);
+
+    })();
+
+    </script>
+
+</head>
+
+<!-- Add feature detection and noscript -->
+
+
+
+<body>
+
+
+
+    <header role="banner" id="title">
+
+        <h1>Who's funding the big three?</h1>
+
+    </header>
+
+ <nav role="navigation">
+
+<ul>
+  <li><a href="index.html" role="button" class="pure-button switch" id="chart">All money</a>
+	</li>
+  <li><a href="labour.html" role="button" class="pure-button switch" id="split_party">Split by party</a>
+	</li>
+  <div class="buttons">
+
+    <div class="buttons-content">
+
+    <a href="labour.html">Labour</a>
+
+    <a href="conservative.html">Conservative</a>
+   
+    <a href="Lib_Dem.html">Liberal</a>
+</div>
+</div>
+  <li><a href="index2.html" role="button" class="pure-button switch" id="group-by-donor-type">Split by type of donor</a>
+	</li>
+	
+</ul>
+</nav>
+        <!-- Public or private money annotations -->
+   
+      
+
+            <div id="conservative">
+
+                <h5>Conservative Party</h5>
+
+                <strong>Total: &#163;43.7 million
+
+                    </strong>
+
+                        <p>Top 50 donors gave:
+
+                            <strong>&#163;23,329,828</strong>
+
+                            <br>
+
+                            <strong>50%</strong>of the total.</p>
+
+                        <p>Top 10 donors gave:
+
+                            <strong>&#163;12,877,989</strong>
+
+                            <br>
+
+                            <strong>27%</strong>of the total</p>
+
+            </div>
+
+            <div id="labour">
+
+                <h5>Labour Party</h5>
+
+                <strong>Total: &#163;38.9 million
+
+                    </strong>
+
+                        <p>Top 50 donors gave:
+
+                            <strong>&#163;39,196,684</strong>
+
+                            <br>
+
+                            <strong>92%</strong>of the total.</p>
+
+                        <p>Top 10 donors gave:
+
+                            <strong>&#163;34,715,877</strong>
+
+                            <br>
+
+                            <strong>81%</strong>of the total</p>
+
+            </div>
+
+            <div id="libdem">
+
+                <h5>Liberal Democrats</h5>
+
+                <strong>Total: &#163;7.1 million
+
+                    </strong>
+
+                        <p>Top 50 donors gave:
+
+                            <strong>&#163;6,975,973</strong>
+
+                            <br>
+
+                            <strong>63%</strong>of the total.</p>
+
+                        <p>Top 10 donors gave:
+
+                            <strong>&#163;4,823,899.71</strong>
+
+                            <br>
+
+                            <strong>43%</strong>of the total</p>
+
+            </div>
+
+
+        
+
+     
+  
+
+    <div id="chart"></div>
+    <div id="tooltip"></div>
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script>
+
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')
+
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+  
+var width = 960,
+
+    height = 500,
+
+    radius = Math.min(width, height) / 2;
+
+
+
+var color = d3.scale.ordinal()
+
+    .range(["#ffff1a"]);
+
+
+
+var arc = d3.svg.arc()
+
+    .outerRadius(radius - 10)
+
+    .innerRadius(0);
+
+
+
+var labelArc = d3.svg.arc()
+
+    .outerRadius(radius - 40)
+
+    .innerRadius(radius - 40);
+
+
+
+var pie = d3.layout.pie()
+
+    .sort(null)
+
+    .value(function(d) { return d.amount; });
+
+
+
+var svg = d3.select("body").append("svg")
+
+    .attr("width", width)
+
+    .attr("height", height)
+
+  .append("g")
+
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+
+d3.csv("7500up.csv", type, function(error, data) {
+
+    var filteredData = data.filter(function(d) {
+        
+        return d.partyname == 'Labour';
+
+        });
+
+        if (error) throw error;
+
+        
+
+  var g = svg.selectAll(".arc")
+
+      .data(pie(filteredData))
+
+    .enter().append("g")
+
+     .on("click",search)
+
+      .attr("class", "arc");
+
+      
+
+
+
+  g.append("path")
+
+      .attr("d", arc)
+
+      .style("fill", function(d) { return color(d.data.donor); });
+
+
+
+  g.on('mouseover', function(d) {      
+
+        var imageFile = "https://raw.githubusercontent.com/ioniodi/D3js-uk-political-donations/master/photos/" + d.data.donor + ".ico";
+
+        var c = color(d.data.donor);
+
+        tooltip.select('.donor').html('Source: ' +"<span style='color: " + c + ";'><strong>"  + d.data.donor+  "</strong><span><img src='" + imageFile + "' height='42' width='42' onError='this.src=\"https://github.com/favicon.ico\";'></span></p>");
+
+        tooltip.select('.partyname').html("Recipient: <strong>" + d.data.partyname + "</strong>");
+
+        tooltip.select('.entityname').html("Type of Donor: <strong>" + d.data.entityname + "</strong>");
+
+        tooltip.select('.amount').html("Total Value: <strong>" + d.data.amount + " $</strong>");
+
+        tooltip.style('display', 'block');
+
+    }); 
+
+  g.on('mouseout', function() {                              // NEW
+
+       tooltip.style('display', 'none');  });         
+
+});
+
+  
+
+function type(d) {
+
+  d.amount = +d.amount;
+
+  return d;
+
+}
+
+var tooltip = d3.select('#chart') 
+
+          .attr('class', 'tooltip');                           // NEW
+
+    tooltip.append('div')
+
+          .attr('class','donor');
+
+   
+
+    tooltip.append('div')
+
+      .attr('class','partyname');
+
+      tooltip.append('div')
+
+      .attr('class','entityname');
+
+      tooltip.append('div')                                           // NEW
+
+    .attr('class', 'amount');
+
+
+
+function search(d) { //search function 
+
+	var donor=d.data.donor;
+
+	window.open("https://www.google.com/search?q=" + donor);
+
+
+
+}
+
+
+  </script>
+<style>
+  /*  Party view */
+  body {
+
+    background-color: #ffffff;
+
+    font-family:'Raleway', 'Open Sans', sans-serif;
+
+}
+
+p {
+
+    margin: 5px 0;
+
+}
+
+strong {
+
+    font-weight: 700;
+
+}
+
+h1, h2, h3, h4, h5 {
+
+    margin: 10px 0 15px 0;
+
+}
+
+header, nav {
+
+    text-align: center;
+
+    min-width: 767px;
+
+}
+
+li {
+
+    display: inline;
+
+}
+
+#conservative, #labour, #libdem { padding: 10px; }
+
+#conservative {
+
+    background: rgba(8, 127, 189, 0.2);
+
+    top: 110px;
+
+}
+
+#labour {
+
+    background: rgba(240, 34, 51, 0.2);
+
+    top: 330px;
+
+}
+
+#libdem {
+
+    background: rgba(253, 187, 48, 0.2);
+
+    top: 550px;
+
+}
+</style>
+
+</body>
+
+
+
+</html>
