@@ -224,7 +224,7 @@ d3.csv("7500up.csv", type, function(error, data) {
 
     }); 
 
-  g.on('mouseout', function() {                              // NEW
+  g.on('mouseout', function() {                              
 
        tooltip.style('display', 'none');  });         
 
@@ -242,7 +242,7 @@ function type(d) {
 
 var tooltip = d3.select('#chart') 
 
-          .attr('class', 'tooltip');                           // NEW
+          .attr('class', 'tooltip');                           
 
     tooltip.append('div')
 
@@ -258,7 +258,7 @@ var tooltip = d3.select('#chart')
 
       .attr('class','entityname');
 
-      tooltip.append('div')                                           // NEW
+      tooltip.append('div')                                           
 
     .attr('class', 'amount');
 
